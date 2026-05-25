@@ -1,0 +1,38 @@
+# Environment and secrets
+.env
+.venv/
+venv/
+env/
+
+# Python cache and build output
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Logs
+LOGS/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local datasets
+data/
+notebook/data_cleaned.csv
+notebook/weather.csv
+notebook/catboost_info/
+
+# Keep artifacts/model.pkl and artifacts/preproccessor.pkl tracked for deployment.
+notebook
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
