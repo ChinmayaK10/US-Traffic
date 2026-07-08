@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 import requests
 from datetime import datetime
 import re
@@ -139,9 +139,7 @@ def fetch_weather_by_coords(latitude, longitude, date, time):
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({
-        "message": "Traffic Congestion Speed Prediction API Running"
-    })
+    return send_from_directory(os.getcwd(), "frontend.html")
 
 
 @app.route("/predictdata", methods=["POST", "OPTIONS"])

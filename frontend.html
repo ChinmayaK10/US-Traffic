@@ -784,7 +784,7 @@
   </main>
 
   <script>
-    const API_URL = "http://127.0.0.1:8000/predictdata";
+    const API_URL = "/predictdata";
 
     const form = document.getElementById("predictionForm");
     const submitBtn = document.getElementById("submitBtn");
@@ -1093,27 +1093,26 @@
     }
 
     function getCsvLocation() {
-      if (!placesReady) {
-        throw new Error("Location options are still loading from places.csv.");
-      }
-
-      const state = getSelectedState();
-      const city = state ? getSelectedCity(state) : "";
-      const street = state && city ? getSelectedStreet(state, city) : "";
+      const typedState = stateInput.value.trim();
+      const typedCity = cityInput.value.trim();
+      const typedStreet = streetInput.value.trim();
+      const state = placesReady ? getSelectedState() : typedState;
+      const city = placesReady && state ? getSelectedCity(state) : typedCity;
+      const street = placesReady && state && city ? getSelectedStreet(state, city) : typedStreet;
 
       if (!state) {
-        throw new Error("Please select a state from places.csv.");
+        throw new Error("Please enter a state.");
       }
 
       if (!city) {
-        throw new Error("Please select a city from places.csv for the chosen state.");
+        throw new Error("Please enter a city.");
       }
 
       if (!street) {
-        throw new Error("Please select a street from places.csv for the chosen city.");
+        throw new Error("Please enter a street.");
       }
 
-      return `${street}, ${city}, ${stateInput.value.trim()}`;
+      return `${street}, ${city}, ${typedState}`;
     }
 
     async function loadPlaces() {
@@ -1172,8 +1171,11 @@
         stateInput.disabled = false;
         placesStatus.textContent = `Loaded ${stateList.length} states from places.csv. Select state, city, then street.`;
       } catch (error) {
-        placesStatus.textContent = "Could not load notebook/places.csv. Serve this page from the project root so the CSV is available.";
-        showMessage(error.message, "error");
+        placesReady = false;
+        stateInput.disabled = false;
+        cityInput.disabled = false;
+        streetInput.disabled = false;
+        placesStatus.textContent = "Location suggestions are unavailable. Type the state, city, and street manually.";
       }
     }
 
