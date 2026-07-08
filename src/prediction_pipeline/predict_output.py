@@ -102,6 +102,8 @@ class PredictionPipeline:
             logging.info("Loading the model")
             model=load_obj(file_path=model_path)
             preprocessor=load_obj(preprocessor_path)
+            if hasattr(model, "set_params"):
+                model.set_params(device="cpu")
 
             data_scaled=preprocessor.transform(features)
             preds=model.predict(data_scaled)

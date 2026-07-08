@@ -1,10 +1,12 @@
 import logging 
 import os
+import tempfile
 from datetime import datetime
 
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
-log_dir=os.path.join(os.getcwd(),"LOGS")
+base_log_dir = tempfile.gettempdir() if os.getenv("VERCEL") else os.getcwd()
+log_dir=os.path.join(base_log_dir,"LOGS")
 os.makedirs(log_dir,exist_ok=True)
 
 

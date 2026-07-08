@@ -8,7 +8,6 @@ from src.prediction_pipeline.predict_output import (
     CustomData
 )
 import random 
-import numpy as np
 from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
