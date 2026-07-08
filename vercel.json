@@ -1,5 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/predictdata",
+      "destination": "/app.py"
+    },
+    {
+      "source": "/",
+      "destination": "/app.py"
+    }
+  ],
   "functions": {
     "app.py": {
       "excludeFiles": "{setup.py,src/components/**,data/**,notebook/**,LOGS/**,.venv/**,venv/**,env/**,__pycache__/**,**/__pycache__/**,*.log}"

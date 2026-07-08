@@ -142,10 +142,23 @@ def home():
     return send_from_directory(os.getcwd(), "frontend.html")
 
 
-@app.route("/predictdata", methods=["POST", "OPTIONS"])
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({
+        "status": "ok",
+        "service": "traffic-prediction"
+    })
+
+
+@app.route("/predictdata", methods=["GET", "POST", "OPTIONS"])
 def predict():
     if request.method == "OPTIONS":
         return "", 204
+
+    if request.method == "GET":
+        return jsonify({
+            "message": "Prediction endpoint is running. Send a POST request with location, date, and time."
+        }), 200
 
     try:
         data = request.get_json()
